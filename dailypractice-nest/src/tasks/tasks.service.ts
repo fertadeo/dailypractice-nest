@@ -1,28 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import {Task, TaskStatus} from './tasks.entity'
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Tasks } from './tasks.entity';
+
 @Injectable()
 export class TasksService {
+    constructor(
+        @InjectRepository(Tasks)
+        private taskRepository: Repository<Tasks>,
+    ) {}
 
-    private task: Task[] = [{
-        id: 1,
-        title: 'primer tarea desde Nest',
-        description: 'Descripcion',
-        status: TaskStatus.PENDING
-
-    }]
-
-    getAllTasks() {
-        return this.task; 
+    async getAllTasks(): Promise<Tasks[]> {
+        return await this.taskRepository.find();
     }
-    createTasks(title: string, description: string) { 
-        const task = {
-            id: 2,
-            title,
-            description,
-            status: TaskStatus.PENDING
-        }
-        this.task.push
-    }
-    updateTasks() { }
-    deleteTasks() { }
 }
