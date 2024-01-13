@@ -3,16 +3,16 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Tasks {
+export class Cliente {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    title: string;
+    nombreCliente: string;
 
     @Column()
-    description: string;
+    direccionCliente: string;
 
     @Column()
-    status: string;
+    telefonoCliente: string;
 }
