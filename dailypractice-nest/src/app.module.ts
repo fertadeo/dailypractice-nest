@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TasksModule } from './tasks/tasks.module';
-import { TasksService } from './tasks/tasks.service';
-import { TasksController } from './tasks/tasks.controller';
+import { ClienteModule } from './cliente/cliente.module';
+import { ClienteService } from './cliente/cliente.service';
+import { clienteController } from './cliente/cliente.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Tasks } from './tasks/tasks.entity';
+import { Cliente } from './cliente/cliente.entity';
 
 @Module({
   imports: [
@@ -17,9 +17,9 @@ import { Tasks } from './tasks/tasks.entity';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, // ¡Evita esto en producción!
   }),
-  TypeOrmModule.forFeature([Tasks]),
-    TasksModule],
-  controllers: [TasksController],
-  providers: [TasksService],
+  TypeOrmModule.forFeature([Cliente]),
+    ClienteModule],
+  controllers: [clienteController],
+  providers: [ClienteService],
 })
 export class AppModule {}
