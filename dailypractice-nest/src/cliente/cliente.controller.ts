@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Delete, Put} from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { Cliente } from './cliente.entity';
 
-@Controller('clientes')
+@Controller('cliente')
 export class clienteController {
     constructor(private readonly clienteService: ClienteService) {}
 
@@ -12,12 +12,25 @@ export class clienteController {
     }
 
     @Post()
-    async createTask(@Body() taskData: Cliente): Promise<Cliente> {
-        return this.clienteService.createCliente(taskData);
+    async createCliente(@Body() clienteData: Cliente): Promise<Cliente> {
+        return this.clienteService.createCliente(clienteData);
     }
 
-    @Post(':id')
-    async updateTask(@Param('id') id: string, @Body() taskData: Cliente): Promise<Cliente> {
-        return this.clienteService.updateCliente(id, taskData);
+    @Put(':id')
+    updateCliente(@Param('id') id: string, @Body() clientData: Cliente): Promise<Cliente> {
+        return this.clienteService.updateCliente(id, clientData);
+        
     }
+
+    @Delete(':id')
+deleteCliente(@Param('id') id: string): Promise<void> {
+    return this.clienteService.deleteCliente(id);
 }
+}
+
+
+
+
+
+
+
