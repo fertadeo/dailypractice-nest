@@ -5,6 +5,7 @@ import { Cliente } from './cliente.entity';
 
 @Injectable()
 export class ClienteService {
+    deleteCliente: any;
     constructor(
         @InjectRepository(Cliente)
         private clienteRepository: Repository<Cliente>,
