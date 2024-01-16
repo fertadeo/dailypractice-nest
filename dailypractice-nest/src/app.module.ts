@@ -4,9 +4,14 @@ import { ClienteService } from './cliente/cliente.service';
 import { clienteController } from './cliente/cliente.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cliente } from './cliente/cliente.entity';
+import {ConfigModule} from '@nestjs/config'
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: `.${process.env.NODE_ENV.trim()}.env`,
+      isGlobal: true
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
