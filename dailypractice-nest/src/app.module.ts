@@ -5,6 +5,7 @@ import { clienteController } from './cliente/cliente.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cliente } from './cliente/cliente.entity';
 import {ConfigModule} from '@nestjs/config'
+import { RepartidorModule } from './repartidor/repartidor.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import {ConfigModule} from '@nestjs/config'
       synchronize: true, // ¡Evita esto en producción!
   }),
   TypeOrmModule.forFeature([Cliente]),
-    ClienteModule],
+    ClienteModule,
+    RepartidorModule],
   controllers: [clienteController],
   providers: [ClienteService],
 })
