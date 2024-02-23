@@ -1,14 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cliente } from './cliente.entity';
+import { RepartidorService } from 'src/repartidor/repartidor.service';
 
 @Injectable()
 export class ClienteService {
     deleteCliente: any;
+    repartidorService: any;
     constructor(
         @InjectRepository(Cliente)
         private clienteRepository: Repository<Cliente>,
+        
     ) {}
 
     async getAllCliente(): Promise<Cliente[]> {
@@ -36,4 +39,19 @@ export class ClienteService {
         return await this.clienteRepository.save(existingCliente); 
     }
     
+
+    async asignarRepartidor(clienteId, repartidorId): Promise<Cliente> {
+        const cliente = await this.clienteRepository.findOne(clienteId);
+        if (!cliente) {
+          throw new NotFoundException(`Cliente con ID ${clienteId} no encontrado`);
+        }
+    
+        const repartidor = await this.repartidorService.obtenerRepartidorPorId(repartidorId);
+        if (!repartidor) {
+          throw new NotFoundException(`Repartidor con ID ${repartidorId} no encontrado`);
+        }
+    
+        cliente.repartidor = repartidor;
+        return this.clienteRepository.save(cliente);
+      }
 }
