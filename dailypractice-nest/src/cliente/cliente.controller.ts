@@ -26,6 +26,11 @@ export class clienteController {
 deleteCliente(@Param('id') id: string): Promise<void> {
     return this.clienteService.deleteCliente(id);
 }
+
+@Post(':id/asignar-repartidor/:repartidorId')
+async asignarRepartidor(@Param('id') id: string, @Param('repartidorId') repartidorId: string): Promise<Cliente> {
+  return this.clienteService.asignarRepartidor(+id, +repartidorId);
+}
 }
 
 
